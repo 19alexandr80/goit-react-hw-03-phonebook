@@ -43,18 +43,20 @@ export class App extends React.PureComponent {
   };
 
   componentDidMount() {
-    this.setState(() => {
-      return {
-        contacts: JSON.parse(localStorage.getItem('contacts'))
-          ? JSON.parse(localStorage.getItem('contacts'))
-          : [],
-      };
-    });
+    if (JSON.parse(localStorage.getItem('contacts'))) {
+      this.setState(() => {
+        return {
+          contacts: JSON.parse(localStorage.getItem('contacts')),
+        };
+      });
+    }
   }
 
-  componentDidUpdate() {
-    const contactsJson = JSON.stringify(this.state.contacts);
-    localStorage.setItem('contacts', contactsJson);
+  componentDidUpdate(a, b) {
+    if (b.contacts !== this.state.contacts) {
+      const contactsJson = JSON.stringify(this.state.contacts);
+      localStorage.setItem('contacts', contactsJson);
+    }
   }
 
   render() {
