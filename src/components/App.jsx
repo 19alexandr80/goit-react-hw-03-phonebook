@@ -13,8 +13,9 @@ export class App extends React.PureComponent {
   };
 
   onChangeFilter = e => {
+    const value = e.target.value;
     this.setState(() => {
-      return { filter: e.target.value };
+      return { filter: value };
     });
   };
 
@@ -43,11 +44,9 @@ export class App extends React.PureComponent {
   };
 
   componentDidMount() {
-    if (JSON.parse(localStorage.getItem('contacts'))) {
-      this.setState(() => {
-        return {
-          contacts: JSON.parse(localStorage.getItem('contacts')),
-        };
+    if (localStorage.getItem('contacts')) {
+      this.setState({
+        contacts: JSON.parse(localStorage.getItem('contacts')),
       });
     }
   }
